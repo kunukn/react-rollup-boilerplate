@@ -10,6 +10,8 @@ import { terser } from 'rollup-plugin-terser'
 import pkg from './package.json'
 
 export default {
+  external: ['react', 'react-dom'],
+
   input: 'src/lib/index.js',
   output: [
     {
@@ -21,6 +23,27 @@ export default {
       file: pkg.module,
       format: 'es',
       sourcemap: true,
+    },
+    {
+      file: pkg.iife,
+      format: 'iife',
+      name: 'Collapse',
+      sourcemap: true,
+      globals: {
+        react: 'React',
+        'react-dom': 'ReactDOM',
+      },
+    },
+    {
+      file: pkg.umd,
+      format: 'umd',
+      name: 'Collapse',
+      moduleName: 'Collapse',
+      sourcemap: true,
+      globals: {
+        react: 'React',
+        'react-dom': 'ReactDOM',
+      },
     },
   ],
   plugins: [
@@ -45,7 +68,9 @@ export default {
       ],
       exclude: 'node_modules/**',
     }),
-    commonjs(),
+    commonjs({
+      include: 'node_modules/**',
+    }),
     terser(),
   ],
 }
