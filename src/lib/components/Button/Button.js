@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import './styles.css'
+import './styles.scss'
 
 const Button = ({
   onClick,
   disabled,
   className,
-  text,
+  children,
 }) => (
   <button
     type="button"
@@ -14,24 +14,22 @@ const Button = ({
     onClick={onClick}
     disabled={disabled}
   >
-    {text}
+    {children}
   </button>
 )
 
 Button.propTypes = {
   onClick: PropTypes.func,
-  /** Disable the button */
   disabled: PropTypes.bool,
   className: PropTypes.string,
-  /** Text of the button */
-  text: PropTypes.string,
+  children: PropTypes.any,
 }
 
 Button.defaultProps = {
   onClick: () => {},
   disabled: false,
   className: null,
-  text: 'Click Me',
+  children: 'Click Me',
 }
 
 export default Button

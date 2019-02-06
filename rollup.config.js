@@ -2,6 +2,7 @@ import babel from 'rollup-plugin-babel'
 import commonjs from 'rollup-plugin-commonjs'
 import external from 'rollup-plugin-peer-deps-external'
 import postcss from 'rollup-plugin-postcss'
+import scss from 'rollup-plugin-scss'
 import resolve from 'rollup-plugin-node-resolve'
 import url from 'rollup-plugin-url'
 import svgr from '@svgr/rollup'
@@ -14,39 +15,39 @@ export default {
 
   input: 'src/lib/index.js',
   output: [
-    {
+    1 && {
       file: pkg.main,
       format: 'cjs',
       sourcemap: true,
     },
-    {
+    1 && {
       file: pkg.module,
       format: 'es',
       sourcemap: true,
     },
-    {
+    1 && {
       file: pkg.iife,
       format: 'iife',
-      name: 'Collapse',
+      name: 'Library',
       sourcemap: true,
       globals: {
         react: 'React',
         'react-dom': 'ReactDOM',
       },
     },
-    {
+    1 && {
       file: pkg.umd,
       format: 'umd',
-      name: 'Collapse',
-      moduleName: 'Collapse',
+      name: 'Library',
       sourcemap: true,
       globals: {
         react: 'React',
         'react-dom': 'ReactDOM',
       },
     },
-  ],
+  ].filter(Boolean),
   plugins: [
+    scss(),
     postcss({
       plugins: [],
       minimize: true,
